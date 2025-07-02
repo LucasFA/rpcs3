@@ -779,6 +779,16 @@ void pad_thread::operator()()
 			m_track_start_press_begin_timestamp = 0;
 		}
 
+
+            for (u32 i = 0; i < connected_devices; i++)
+	    {
+			const auto& pad = m_pads[i];
+			pad->m_sensors[0].m_value = (512 + (pad->m_sticks[0].m_value - 127.5f));
+			pad->m_sensors[1].m_value = (399 + (pad->m_sticks[1].m_value - 127.5f) * 2);
+			pad->m_sensors[2].m_value = (512 + (pad->m_sticks[2].m_value - 127.5f));
+			pad->m_sensors[3].m_value = (512 + (pad->m_sticks[3].m_value - 127.5f));
+		}
+
 		thread_ctrl::wait_for(pad_sleep);
 	}
 
